@@ -14,24 +14,43 @@ export class ElectionService {
   constructor(private http: HttpClient) { }
 
   getElectionName() {
-    const getElection = `http://demoeelection.erpguru.in/Service.asmx/Web_Election_Get_ElectionNameHaveConstituency?UserId=${this.userId}`;
+    const getElectionURL = `http://demoeelection.erpguru.in/Service.asmx/Web_Election_Get_ElectionNameHaveConstituency?UserId=${this.userId}`;
     return this.http
-      .get<any>(getElection)
+      .get<any>(getElectionURL)
       .pipe(
       // tap(data => console.log(`Constituency: ${JSON.stringify(data)}`)),
     )
   }
 
   getConstituency(selectedElection: number) {
-    const getConstituency = `http://demoeelection.erpguru.in/Service.asmx/Web_Election_Get_ConstituencyName?UserId=${this.userId}`;
+    const getConstituencyURL = `http://demoeelection.erpguru.in/Service.asmx/Web_Election_Get_ConstituencyName?UserId=${this.userId}`;
 
     let param = new HttpParams().set('ElectionId', selectedElection)
 
     return this.http
-      .get<any>(getConstituency, { params: param })
+      .get<any>(getConstituencyURL, { params: param })
       .pipe(
       // tap(data => console.log(`Constituency: ${JSON.stringify(data)}`)),
     )
+  }
+
+  getAssembly() {
+    const getAssemblyURL = `http://demoeelection.erpguru.in/Service.asmx/Web_Election_GetAssembly?UserId=${this.userId}`;
+    return this.http
+      .get<any>(getAssemblyURL)
+      .pipe(
+      // tap(data => console.log(`Constituency: ${JSON.stringify(data)}`)),
+    )
+  }
+  getBooth(selectedConstituency: number) {
+    const getBoothURL = `http://demoeelection.erpguru.in/Service.asmx/Web_Election_GetBoothList?UserId=${this.userId}`;
+    let param = new HttpParams().set('ConstituencyId', selectedConstituency);
+
+    return this.http
+      .get<any>(getBoothURL, { params: param })
+      .pipe(
+        tap(data => console.log(`Constituency: ${JSON.stringify(data)}`)),
+      )
   }
 
 

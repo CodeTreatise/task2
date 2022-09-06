@@ -3,7 +3,7 @@
     background-color: lightblue;
     display: flex;
     justify-content: space-around;
-    
+
     .assign {
         flex: 1 0 25%;
         background-color: lightcoral;
@@ -19,8 +19,20 @@
             flex-direction: column;
             justify-content: space-between;
 
+
+
             .assembly {
+
                 .assembly-title {
+                    font-weight: bold;
+                }
+
+                display: flex;
+                flex-direction: column;
+            }
+
+            .booth {
+                .booth-title {
                     font-weight: bold;
                 }
 
@@ -36,6 +48,15 @@
     }
 }
 
-table{
+table {
     width: 100%;
+}
+
+.assembly-card {
+    margin: 10px 0 10px 0;
+}
+
+.noData{
+    font-weight: bold;
+    text-align: center;
 }
