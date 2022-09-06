@@ -10,17 +10,20 @@
       <!-- Election Dropdown -->
       <mat-form-field>
         <mat-label>Election</mat-label>
-        <mat-select (ngModelChange)="onElectionSelected()">
-          <mat-option *ngFor="let constituency of listconstituency" [value]="constituency.id">{{constituency.ElectionName}}
+        <mat-select [(ngModel)]="electionSelected" (selectionChange)="onElectionSelect()">
+          <mat-option *ngFor="let election of electionList" [value]="election.id">
+            {{election.ElectionName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
       <!-- constituency Dropdown -->
       <mat-form-field>
-        <mat-label>Election</mat-label>
-        <mat-select (ngModelChange)="onConstituencySelected()">
-          <mat-option></mat-option>
+        <mat-label>Constituency</mat-label>
+        <mat-select [(ngModel)]="constituencySelected" (selectionChange)="onConstituencySelect()">
+          <mat-option *ngFor="let constituency of constituencyList" [value]="constituency.id">
+            {{constituency.ConstituencyName}}
+          </mat-option>
         </mat-select>
       </mat-form-field>
 

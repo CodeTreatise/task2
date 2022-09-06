@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ElectionService } from './election.service';
-import { Constituency } from './model/constituency';
+import { Election } from './model/election';
 import { Responce } from './model/responce';
 
 @Component({
@@ -11,7 +11,15 @@ import { Responce } from './model/responce';
 export class AppComponent implements OnInit {
   title = 'task - 2';
 
-  listconstituency!: any;
+  // Election
+  electionList!: any[];
+
+  electionSelected!: number;
+
+  // Constituency
+  constituencyList!: any[];
+
+  constituencySelected!: number;
 
   electionData: any = [{}];
 
@@ -21,24 +29,35 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.onElectionSelected();
+    this.loadElections();
   }
 
-  onElectionSelected() {
+  // load the initial election list
+  loadElections() {
     this.electionService.getElectionName().subscribe(response => {
       for (let prop in response) {
         if (response[prop] !== 0) {
-          this.listconstituency = response[prop];
+          this.electionList = response[prop];
         }
       }
-      console.log(this.listconstituency);
-
     })
   }
 
+  // load constituency data based on election selection
+  onElectionSelect() {
+    this.electionService.getConstituency(this.electionSelected).subscribe(response => {
+      for (let prop in response) {
+        if (response[prop] !== 0) {
+          this.constituencyList = response[prop];
+        }
+      }
+    })
 
-  onConstituencySelected() {
+  }
 
+
+  onConstituencySelect() {
+    console.log(this.constituencySelected);
   }
 
   displayedColumns: String[] = ['rowNumber', 'ElectionName', 'Constituency', 'Assembly', 'BoothNo', 'VotersNo', 'Edit', 'Delete']
