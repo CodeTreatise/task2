@@ -25,11 +25,14 @@ export class AppComponent implements OnInit {
   }
 
   onElectionSelected() {
-    this.electionService.getElectionName().subscribe(responce => {
-      this.listconstituency = responce;
-      for (const prop in responce) {
-        // console.log(responce[prop as keyof typeof Responce]);
+    this.electionService.getElectionName().subscribe(response => {
+      for (let prop in response) {
+        if (response[prop] !== 0) {
+          this.listconstituency = response[prop];
+        }
       }
+      console.log(this.listconstituency);
+
     })
   }
 

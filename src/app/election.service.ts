@@ -15,9 +15,10 @@ export class ElectionService {
   getElectionName() {
     const getElection = `http://demoeelection.erpguru.in/Service.asmx/Web_Election_Get_ElectionNameHaveConstituency?UserId=1`;
     return this.http
-      .get(getElection).pipe(
-      )
-      
+      .get<any>(getElection).pipe(
+
+    )
+
 
   }
 }

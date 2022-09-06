@@ -11,7 +11,7 @@
       <mat-form-field>
         <mat-label>Election</mat-label>
         <mat-select (ngModelChange)="onElectionSelected()">
-          <mat-option *ngFor="let constituency of listconstituency" [value]="constituency.id">{{constituency.name}}
+          <mat-option *ngFor="let constituency of listconstituency" [value]="constituency.id">{{constituency.ElectionName}}
           </mat-option>
         </mat-select>
       </mat-form-field>
