@@ -1,0 +1,41 @@
+.container {
+    width: inherit;
+    background-color: lightblue;
+    display: flex;
+    justify-content: space-around;
+    
+    .assign {
+        flex: 1 0 25%;
+        background-color: lightcoral;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .assign-header {
+            margin: 5px 0;
+        }
+
+        .assign-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+
+            .assembly {
+                .assembly-title {
+                    font-weight: bold;
+                }
+
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+
+    .display {
+        flex: 1 0 65%;
+        background-color: lightgreen;
+    }
+}
+
+table{
+    width: 100%;
+}
