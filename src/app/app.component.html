@@ -1,68 +1,77 @@
 <mat-card>Task 2</mat-card>
 
+
 <mat-card class="container">
-  <mat-card class="assign">
-    <mat-card-header class="assign-header">
-      <mat-card-title class="assign-title">Assign booths to constituency</mat-card-title>
-    </mat-card-header>
-    <mat-card-content class="assign-content">
+  <form [formGroup]="electionFrom" (ngSubmit)="assemblySubmit()" class="form-container">
+    <mat-card class="assign">
+      <mat-card-header class="assign-header">
+        <mat-card-title class="assign-title">Assign booths to constituency</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="assign-content">
 
-      <!-- Election Dropdown -->
-      <mat-form-field>
-        <mat-label>Election</mat-label>
-        <mat-select [(ngModel)]="electionSelected" (selectionChange)="onElectionSelect()">
-          <mat-option *ngFor="let election of electionList" [value]="election.id">
-            {{election.ElectionName}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <!-- Election Dropdown -->
+        <mat-form-field>
+          <mat-label>Election</mat-label>
+          <mat-select [(ngModel)]="electionSelected" (selectionChange)="onElectionSelect()"
+            formControlName="electionId">
+            <mat-option *ngFor="let election of electionList" [value]="election.id">
+              {{election.ElectionName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <!-- constituency Dropdown -->
-      <mat-form-field>
-        <mat-label>Constituency</mat-label>
-        <mat-select [(ngModel)]="constituencySelected" (selectionChange)="onConstituencySelect()">
-          <mat-option *ngFor="let constituency of constituencyList" [value]="constituency.id">
-            {{constituency.ConstituencyName}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <!-- constituency Dropdown -->
+        <mat-form-field>
+          <mat-label>Constituency</mat-label>
+          <mat-select [(ngModel)]="constituencySelected" (selectionChange)="onConstituencySelect()"
+            formControlName="constituencyId">
+            <mat-option *ngFor="let constituency of constituencyList" [value]="constituency.id">
+              {{constituency.ConstituencyName}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
 
-      <!-- assembly check box -->
-      <mat-card class="assembly-card">
-        <section class="assembly">
-          <h3 class="assembly-title">assembly</h3>
-          <h4 class="assembly-subtitle">Search Assembly</h4>
-          <mat-card-content class="assembly-content">
-            <ng-container *ngFor="let assembly of assemblyList">
-              <mat-checkbox (change)="getChecked(assembly)">{{assembly.ConstituencyName}}</mat-checkbox>
-            </ng-container>
-          </mat-card-content>
-        </section>
-      </mat-card>
-
-      <!-- booth check box -->
-      <mat-card class="booth-card">
-        <section class="booth" [formGroup]="form" (ngSubmit)="assemblySubmit()">
-          <h3 class="booth-title">booth</h3>
-          <h4 class="booth-subtitle">Search booth</h4>
-          <mat-card-content class="booth-content">
-            <ng-container *ngIf="boothList.length !== 0; else elseBlock">
-              <ng-container *ngFor="let booth of boothList">
-                <mat-checkbox>{{booth.BoothNickName}}</mat-checkbox>
+        <!-- assembly check box -->
+        <mat-card class="assembly-card">
+          <section class="assembly">
+            <h3 class="assembly-title">assembly</h3>
+            <h4 class="assembly-subtitle">Search Assembly</h4>
+            <mat-card-content class="assembly-content">
+              <ng-container *ngIf="assemblyList.length !== 0; else AssemblyBlock">
+                <ng-container *ngFor="let assembly of assemblyList">
+                  <mat-checkbox (change)="getChecked(assembly, $event.source.id, $event.source.checked)">
+                    {{assembly.ConstituencyName}}</mat-checkbox>
+                </ng-container>
               </ng-container>
-            </ng-container>
-            <ng-template #elseBlock class="noData">loading...</ng-template>
-          </mat-card-content>
-        </section>
-      </mat-card>
+              <ng-template #AssemblyBlock class="noData">loading...</ng-template>
+            </mat-card-content>
+          </section>
+        </mat-card>
 
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-stroked-button color="primary">Clear</button>
-      <button mat-raised-button color="accent" (click)="displayData()">Assign Booth</button>
-    </mat-card-actions>
-  </mat-card>
+        <!-- booth check box -->
+        <mat-card class="booth-card">
+          <section class="booth">
+            <h3 class="booth-title">booth</h3>
+            <h4 class="booth-subtitle">Search booth</h4>
+            <mat-card-content class="booth-content">
+              <ng-container *ngIf="boothList.length !== 0; else boothBlock">
+                <ng-container *ngFor="let booth of boothList">
+                  <mat-checkbox>{{booth.BoothNickName}}</mat-checkbox>
+                </ng-container>
+              </ng-container>
+              <ng-template #boothBlock class="noData">loading...</ng-template>
+            </mat-card-content>
+          </section>
+        </mat-card>
+
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-stroked-button color="primary">Clear</button>
+        <button mat-raised-button color="accent" (click)="displayData()">Assign Booth</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
 
 
 

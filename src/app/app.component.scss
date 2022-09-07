@@ -1,61 +1,65 @@
 .container {
-    width: inherit;
+    // width: inherit;
     background-color: lightblue;
     display: flex;
     justify-content: space-around;
 
-    .assign {
-        flex: 1 0 25%;
+    .form-container {
+        width: inherit;
         max-width: 25%;
-        background-color: lightcoral;
-        flex-direction: column;
-        justify-content: space-between;
 
-        .assign-header {
-            margin: 5px 0;
-        }
-
-        .assign-content {
-            display: flex;
+        .assign {
+            flex: 1 0 25%;
+            background-color: lightcoral;
             flex-direction: column;
             justify-content: space-between;
 
-
-
-            .assembly {
-
-                .assembly-content {
-                    display: flex;
-                    flex-direction: column;
-                    overflow: auto;
-                    height: 100px;
-                    white-space: nowrap;
-                    flex-grow: 0;
-
-                }
-
-                .assembly-title {
-                    font-weight: bold;
-                }
-
-
+            .assign-header {
+                margin: 5px 0;
             }
 
-            .booth {
-                .booth-content {
-                    display: flex;
-                    flex-direction: column;
-                    overflow: auto;
-                    min-height: 50px;
-                    max-height: 100px;
-                    white-space: wrap;
+            .assign-content {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+
+
+
+                .assembly {
+
+                    .assembly-content {
+                        display: flex;
+                        flex-direction: column;
+                        overflow: auto;
+                        height: 100px;
+                        white-space: nowrap;
+                        flex-grow: 0;
+
+                    }
+
+                    .assembly-title {
+                        font-weight: bold;
+                    }
+
+
                 }
 
-                .booth-title {
-                    font-weight: bold;
+                .booth {
+                    .booth-content {
+                        display: flex;
+                        flex-direction: column;
+                        overflow: auto;
+                        min-height: 50px;
+                        max-height: 100px;
+                        white-space: wrap;
+                    }
+
+                    .booth-title {
+                        font-weight: bold;
+                    }
+
+
                 }
-
-
             }
         }
     }
