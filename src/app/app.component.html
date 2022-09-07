@@ -27,38 +27,46 @@
         </mat-select>
       </mat-form-field>
 
-     
+
       <!-- assembly check box -->
       <mat-card class="assembly-card">
         <section class="assembly">
           <h3 class="assembly-title">assembly</h3>
           <h4 class="assembly-subtitle">Search Assembly</h4>
-          <ng-container *ngFor="let assembly of assemblyList">
-            <mat-checkbox>{{assembly.ConstituencyName}}</mat-checkbox>
-          </ng-container>
+          <mat-card-content class="assembly-content">
+            <ng-container *ngFor="let assembly of assemblyList">
+              <mat-checkbox (change)="getChecked(assembly)">{{assembly.ConstituencyName}}</mat-checkbox>
+            </ng-container>
+          </mat-card-content>
         </section>
       </mat-card>
-     
+
       <!-- booth check box -->
       <mat-card class="booth-card">
         <section class="booth" [formGroup]="form" (ngSubmit)="assemblySubmit()">
           <h3 class="booth-title">booth</h3>
           <h4 class="booth-subtitle">Search booth</h4>
-          <ng-container *ngIf="noData; else elseBlock">
-            <ng-container *ngFor="let booth of boothList">
-              <mat-checkbox>{{booth.BoothNickName}}</mat-checkbox>
+          <mat-card-content class="booth-content">
+            <ng-container *ngIf="boothList.length !== 0; else elseBlock">
+              <ng-container *ngFor="let booth of boothList">
+                <mat-checkbox>{{booth.BoothNickName}}</mat-checkbox>
+              </ng-container>
             </ng-container>
-          </ng-container>
-          <ng-template #elseBlock class="noData">no booth for this Constituency</ng-template>
+            <ng-template #elseBlock class="noData">loading...</ng-template>
+          </mat-card-content>
         </section>
       </mat-card>
 
     </mat-card-content>
     <mat-card-actions>
       <button mat-stroked-button color="primary">Clear</button>
-      <button mat-raised-button color="accent">Assign Booth</button>
+      <button mat-raised-button color="accent" (click)="displayData()">Assign Booth</button>
     </mat-card-actions>
   </mat-card>
+
+
+
+
 
   <!-- Table -->
   <mat-card class="display">

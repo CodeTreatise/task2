@@ -25,10 +25,12 @@ export class AppComponent implements OnInit {
   // Assembly
   assemblyList!: any[];
 
-  assemblySelected!: any[];
+  assemblySelectedArray: any[] = [];
+
+  currentAssemblyLength: number = 0;
 
   // Booth
-  boothList!: any[];
+  boothList: any[] = [];
 
   boothSelected!: any[];
 
@@ -37,6 +39,8 @@ export class AppComponent implements OnInit {
   electionData: any = [{}];
 
   noData: boolean = false;
+
+  isChecked: any;
 
 
   constructor(private electionService: ElectionService, private formBuilder: FormBuilder) {
@@ -85,26 +89,48 @@ export class AppComponent implements OnInit {
     })
   }
 
+  // use constituency dropdown to get constituencyId
   loadBooth() {
-    this.electionService.getBooth(this.constituencySelected).subscribe(response => {
-      for (let prop in response) {
+    if (this.assemblySelectedArray.length !== 0) {
+      if (this.assemblySelectedArray.length !== this.currentAssemblyLength) {
 
-        if (response[prop] !== 0 && response[prop] !== 1) {
-          this.boothList = response[prop];
-          console.log(`Booth List: ${this.boothList}`);
-        } else {
-          this.boothList = [];
-          this.noData = true;
-        }
+        this.currentAssemblyLength = this.assemblySelectedArray.length;
+
+        this.assemblySelectedArray.forEach(assembly => {
+
+          // console.log(assembly)
+          // console.log(assembly.Id)
+          this.boothList.length = 0;
+
+          this.electionService.getBooth(assembly.Id).subscribe(response => {
+            for (let prop in response) {
+              if (response[prop] !== 0) {
+                this.boothList.push(...response[prop]);
+                console.log(`Booth length `, this.boothList.length);
+              }
+            }
+          })
+        })
       }
-    })
+    }
+
   }
 
 
   assemblySubmit() { }
-
   onConstituencySelect() {
-    this.loadBooth();
+
+  }
+
+
+  // use to gather data and push it data source
+  displayData() {
+    console.log('disply  clicked');
+  }
+
+  getChecked(data: any) {
+    this.assemblySelectedArray.push(data);
+    this.loadBooth()
   }
 
   displayedColumns: String[] = ['rowNumber', 'ElectionName', 'Constituency', 'Assembly', 'BoothNo', 'VotersNo', 'Edit', 'Delete']

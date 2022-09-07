@@ -43,13 +43,14 @@ export class ElectionService {
     )
   }
   getBooth(selectedConstituency: number) {
+    // console.log('from booth', selectedConstituency)
     const getBoothURL = `http://demoeelection.erpguru.in/Service.asmx/Web_Election_GetBoothList?UserId=${this.userId}`;
     let param = new HttpParams().set('ConstituencyId', selectedConstituency);
 
     return this.http
       .get<any>(getBoothURL, { params: param })
       .pipe(
-        tap(data => console.log(`Constituency: ${JSON.stringify(data)}`)),
+        // tap(data => console.log(`Constituency: ${JSON.stringify(data)}`)),
       )
   }
 
